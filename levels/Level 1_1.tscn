@@ -1,0 +1,412 @@
+[gd_scene load_steps=51 format=1]
+
+[ext_resource path="res://Audio/music/Waterflame_-_Absent.ogg" type="AudioStream" id=1]
+[ext_resource path="res://Scenes/TileMap.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/Builder/one_way_platform.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sprites/Poochyena/frame_0_delay-0.05s.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Poochyena/frame_1_delay-0.05s.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Poochyena/frame_2_delay-0.05s.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Poochyena/frame_3_delay-0.05s.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Poochyena/frame_4_delay-0.05s.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Poochyena/frame_5_delay-0.05s.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Poochyena/frame_6_delay-0.05s.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Poochyena/frame_7_delay-0.05s.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Poochyena/frame_8_delay-0.05s.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/Poochyena/frame_9_delay-0.05s.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/Poochyena/frame_10_delay-0.05s.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/Poochyena/frame_11_delay-0.05s.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/Poochyena/frame_12_delay-0.05s.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/Poochyena/frame_13_delay-0.05s.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/Poochyena/frame_14_delay-0.05s.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/Poochyena/frame_15_delay-0.05s.png" type="Texture" id=19]
+[ext_resource path="res://Sprites/Poochyena/frame_16_delay-0.05s.png" type="Texture" id=20]
+[ext_resource path="res://Sprites/Poochyena/frame_17_delay-0.05s.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/Poochyena/frame_18_delay-0.05s.png" type="Texture" id=22]
+[ext_resource path="res://Sprites/Poochyena/frame_19_delay-0.05s.png" type="Texture" id=23]
+[ext_resource path="res://Sprites/Poochyena/frame_20_delay-0.05s.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/Poochyena/frame_21_delay-0.05s.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/Poochyena/frame_22_delay-0.05s.png" type="Texture" id=26]
+[ext_resource path="res://Sprites/Poochyena/frame_23_delay-0.05s.png" type="Texture" id=27]
+[ext_resource path="res://Sprites/Poochyena/frame_24_delay-0.05s.png" type="Texture" id=28]
+[ext_resource path="res://Sprites/Poochyena/frame_25_delay-0.05s.png" type="Texture" id=29]
+[ext_resource path="res://Sprites/Poochyena/frame_26_delay-0.05s.png" type="Texture" id=30]
+[ext_resource path="res://Sprites/Poochyena/frame_27_delay-0.05s.png" type="Texture" id=31]
+[ext_resource path="res://Sprites/Poochyena/frame_28_delay-0.05s.png" type="Texture" id=32]
+[ext_resource path="res://Sprites/Poochyena/frame_29_delay-0.05s.png" type="Texture" id=33]
+[ext_resource path="res://Sprites/Poochyena/frame_30_delay-0.05s.png" type="Texture" id=34]
+[ext_resource path="res://Sprites/Poochyena/frame_31_delay-0.05s.png" type="Texture" id=35]
+[ext_resource path="res://Sprites/Poochyena/frame_32_delay-0.05s.png" type="Texture" id=36]
+[ext_resource path="res://Scenes/Rakkan.tscn" type="PackedScene" id=37]
+[ext_resource path="res://Scenes/parallax_bg.tscn" type="PackedScene" id=38]
+[ext_resource path="res://Scenes/facts.tscn" type="PackedScene" id=39]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends RichTextLabel
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	self.set_bbcode(\"W/A/S/D to move\")
+	pass
+"
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends RichTextLabel
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	self.set_bbcode(\"You can wall jump\")
+	pass
+"
+
+[sub_resource type="GDScript" id=3]
+
+script/source = "extends RichTextLabel
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	self.set_bbcode(\"The path is blocked\")
+	pass
+"
+
+[sub_resource type="GDScript" id=4]
+
+script/source = "extends RichTextLabel
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	self.set_bbcode(\"Nice!\")
+	pass
+"
+
+[sub_resource type="GDScript" id=5]
+
+script/source = "extends RichTextLabel
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	self.set_bbcode(\"Appuie sur 2 pour activer le pouvoir de chimpazé pour pouvoir faire brievement des double-sauts\")
+	pass"
+
+[sub_resource type="RectangleShape2D" id=6]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[sub_resource type="GDScript" id=7]
+
+script/source = "extends Area2D
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+
+func _ready():
+	set_process_input(true)
+	pass
+
+func _input(event):
+	
+	pass"
+
+[sub_resource type="GDScript" id=8]
+
+script/source = "extends CollisionShape2D
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+"
+
+[sub_resource type="CircleShape2D" id=9]
+
+custom_solver_bias = 0.0
+radius = 150.648
+
+[sub_resource type="GDScript" id=10]
+
+script/source = "extends Area2D
+
+var finished = 0
+
+func _ready():
+	set_process_input(true)
+	pass
+
+func _input(event):
+	if finished == 1:
+		get_tree().change_scene(\"res://video/Video1_2.tscn\")
+	pass"
+
+[sub_resource type="SpriteFrames" id=11]
+
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Node" type="Node"]
+
+process/pause_mode = 1
+
+[node name="StreamPlayer" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 1 )
+stream/play = false
+stream/loop = false
+stream/volume_db = 0.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
+
+[node name="TileMap" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( -342.416, 89.7507 )
+tile_data = IntArray( -196616, 9, -196611, 9, -131080, 7, -131075, 8, -65553, 536870913, -65552, 0, -65551, 0, -65550, 0, -65549, 1, -65547, 536870913, -65546, 0, -65545, 5, -65544, 6, -65543, 5, -65542, 0, -65541, 0, -65540, 5, -65539, 6, -65538, 5, -65537, 536870918, -131072, 536870917, -131071, 536870917, -131070, 536870917, -131069, 1, -131065, 536870913, -131064, 536870912, -131063, 14, -131062, 14, -131061, 14, -131060, 14, -131059, 536870912, -131058, 1, -17, 536870914, -16, 10, -15, 10, -14, 10, -13, 2, -11, 536870914, -10, 10, -9, 10, -8, 10, -7, 10, -6, 10, -5, 11, -4, 11, -3, 536870923, -2, 536870923, -1, 536870923, -65536, 536870923, -65535, 536870923, -65534, 10, -65533, 2, -65529, 536870914, -65528, 2, -65523, 536870914, -65522, 2, 65519, 536870914, 65520, 10, 65521, 10, 65522, 10, 65523, 2, 65525, 536870914, 65526, 10, 65527, 10, 65528, 10, 65529, 10, 65530, 2, 2, 536870914, 3, 2, 7, 536870925, 8, 13, 13, 536870914, 14, 2, 131055, 536870914, 131056, 10, 131057, 10, 131058, 10, 131059, 2, 131061, 536870914, 131062, 10, 131063, 10, 131064, 10, 131065, 10, 131066, 2, 65538, 536870914, 65539, 2, 65549, 536870914, 65550, 2, 196591, 536870914, 196592, 10, 196593, 10, 196594, 10, 196595, 2, 196597, 536870914, 196598, 10, 196599, 10, 196600, 10, 196601, 10, 196602, 3, 131074, 536870914, 131075, 2, 131085, 536870914, 131086, 2, 262127, 536870914, 262128, 10, 262129, 10, 262130, 10, 262131, 2, 262133, 536870914, 262134, 10, 262135, 10, 262136, 10, 262137, 10, 262138, 2, 196610, 536870914, 196611, 4, 196612, 14, 196613, 14, 196614, 14, 196615, 15, 196621, 536870914, 196622, 2, 327663, 536870914, 327664, 10, 327665, 10, 327666, 10, 327667, 10, 327668, 5, 327669, 10, 327670, 10, 327671, 10, 327672, 10, 327673, 10, 327674, 2, 262146, 536870925, 262147, 13, 262157, 536870914, 262158, 2, 393199, 536870914, 393200, 10, 393201, 10, 393202, 10, 393203, 10, 393204, 11, 393205, 10, 393206, 10, 393207, 10, 393208, 10, 393209, 10, 393210, 2, 327688, 9, 327693, 536870915, 327694, 2, 458735, 536870914, 458736, 10, 458737, 10, 458738, 10, 458739, 2, 458741, 536870914, 458742, 10, 458743, 10, 458744, 10, 458745, 10, 458746, 2, 393224, 7, 393229, 536870914, 393230, 2, 524271, 536870914, 524272, 10, 524273, 10, 524274, 10, 524275, 2, 524277, 536870914, 524278, 10, 524279, 10, 524280, 10, 524281, 10, 524282, 4, 524283, 0, 524284, 0, 524285, 0, 524286, 0, 524287, 0, 458752, 536870917, 458753, 536870917, 458754, 5, 458755, 536870917, 458756, 536870917, 458757, 536870917, 458758, 0, 458759, 5, 458760, 6, 458761, 5, 458762, 0, 458763, 536870912, 458764, 536870912, 458765, 536870916, 458766, 2, 589807, 536870925, 589808, 536870923, 589809, 536870923, 589810, 536870923, 589811, 13, 589813, 536870914, 589814, 10, 589815, 10, 589816, 10, 589817, 10, 589818, 10, 589819, 10, 589820, 10, 589821, 10, 589822, 10, 589823, 10, 524288, 10, 524289, 10, 524290, 10, 524291, 10, 524292, 10, 524293, 10, 524294, 10, 524295, 10, 524296, 10, 524297, 10, 524298, 10, 524299, 10, 524300, 10, 524301, 10, 524302, 2, 655339, 536870921, 655349, 536870925, 655350, 10, 655351, 10, 655352, 10, 655353, 10, 655354, 10, 655355, 10, 655356, 10, 655357, 10, 655358, 10, 655359, 10, 589824, 10, 589825, 10, 589826, 10, 589827, 10, 589828, 10, 589829, 10, 589830, 10, 589831, 10, 589832, 10, 589833, 10, 589834, 10, 589835, 10, 589836, 10, 589837, 10, 589838, 2, 720875, 536870920, 720886, 536870925, 720887, 11, 720888, 11, 720889, 11, 720890, 11, 720891, 11, 720892, 11, 720893, 11, 720894, 11, 720895, 11, 655360, 11, 655361, 11, 655362, 11, 655363, 11, 655364, 11, 655365, 11, 655366, 11, 655367, 11, 655368, 11, 655369, 11, 655370, 11, 655371, 11, 655372, 11, 655373, 10, 655374, 2, 786410, 536870913, 786411, 6, 786412, 5, 786413, 0, 786414, 5, 786415, 0, 786416, 0, 786417, 0, 786418, 0, 786419, 0, 786420, 12, 720909, 536870914, 720910, 2, 851946, 536870914, 851947, 10, 851948, 10, 851949, 10, 851950, 10, 851951, 10, 851952, 10, 851953, 10, 851954, 10, 851955, 10, 851957, 12, 786445, 536870914, 786446, 2, 917482, 536870914, 917483, 10, 917484, 10, 917485, 10, 917486, 10, 917487, 10, 917488, 10, 917489, 10, 917490, 10, 917491, 10, 917492, 10, 917494, 12, 851981, 536870914, 851982, 2, 983018, 536870915, 983019, 10, 983020, 10, 983021, 10, 983022, 10, 983023, 10, 983024, 10, 983025, 10, 983026, 10, 983027, 10, 983028, 10, 983029, 10, 983031, 12, 917517, 536870914, 917518, 2, 1048554, 536870914, 1048555, 10, 1048556, 10, 1048557, 10, 1048558, 10, 1048559, 10, 1048560, 10, 1048561, 10, 1048562, 10, 1048563, 10, 1048564, 10, 1048565, 10, 1048566, 10, 1048568, 12, 983053, 536870914, 983054, 2, 1114090, 536870914, 1114091, 10, 1114092, 10, 1114093, 10, 1114094, 10, 1114095, 10, 1114096, 10, 1114097, 10, 1114098, 10, 1114099, 10, 1114100, 10, 1114101, 10, 1114102, 10, 1114103, 10, 1114105, 12, 1048589, 536870914, 1048590, 2, 1179626, 536870914, 1179627, 10, 1179628, 10, 1179629, 10, 1179630, 10, 1179631, 10, 1179632, 10, 1179633, 10, 1179634, 10, 1179635, 10, 1179636, 10, 1179637, 10, 1179638, 10, 1179639, 10, 1179640, 10, 1179642, 5, 1179643, 5, 1179644, 5, 1179645, 5, 1179646, 1, 1114120, 536870913, 1114121, 5, 1114122, 5, 1114123, 5, 1114124, 5, 1114125, 536870916, 1114126, 2, 1245162, 536870915, 1245163, 10, 1245164, 10, 1245165, 10, 1245166, 10, 1245167, 10, 1245168, 10, 1245169, 10, 1245170, 10, 1245171, 10, 1245172, 10, 1245173, 10, 1245174, 10, 1245175, 10, 1245176, 10, 1245177, 10, 1245178, 10, 1245179, 10, 1245180, 10, 1245181, 10, 1245182, 2, 1179656, 536870914, 1179657, 10, 1179658, 10, 1179659, 10, 1179660, 10, 1179661, 10, 1179662, 3, 1310698, 536870914, 1310699, 10, 1310700, 10, 1310701, 10, 1310702, 10, 1310703, 10, 1310704, 10, 1310705, 10, 1310706, 10, 1310707, 10, 1310708, 10, 1310709, 10, 1310710, 10, 1310711, 10, 1310712, 10, 1310713, 10, 1310714, 10, 1310715, 10, 1310716, 10, 1310717, 10, 1310718, 2, 1245192, 536870914, 1245193, 10, 1245194, 10, 1245195, 10, 1245196, 10, 1245197, 10, 1245198, 2, 1376234, 536870914, 1376235, 10, 1376236, 10, 1376237, 10, 1376238, 10, 1376239, 10, 1376240, 10, 1376241, 10, 1376242, 10, 1376243, 10, 1376244, 10, 1376245, 10, 1376246, 10, 1376247, 10, 1376248, 10, 1376249, 10, 1376250, 10, 1376251, 10, 1376252, 10, 1376253, 10, 1376254, 2, 1310728, 536870914, 1310729, 10, 1310730, 10, 1310731, 10, 1310732, 10, 1310733, 10, 1310734, 2, 1441770, 536870914, 1441771, 10, 1441772, 10, 1441773, 10, 1441774, 10, 1441775, 10, 1441776, 10, 1441777, 10, 1441778, 10, 1441779, 10, 1441780, 10, 1441781, 10, 1441782, 10, 1441783, 10, 1441784, 10, 1441785, 10, 1441786, 10, 1441787, 10, 1441788, 10, 1441789, 10, 1441790, 2, 1376264, 536870914, 1376265, 10, 1376266, 10, 1376267, 10, 1376268, 10, 1376269, 10, 1376270, 2 )
+
+[node name="one_way_platform" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 9.31155, -6.60204 )
+
+[node name="Control" type="Control" parent="."]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+
+[node name="Panel" type="Panel" parent="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -543.0
+margin/top = 402.0
+margin/right = -331.0
+margin/bottom = 488.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 39.0
+margin/top = 42.0
+margin/right = 213.0
+margin/bottom = 91.0
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+script/script = SubResource( 1 )
+
+[node name="Panel 2" type="Panel" parent="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 242.0
+margin/top = 334.0
+margin/right = 449.0
+margin/bottom = 419.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Panel 2"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 41.0
+margin/top = 30.0
+margin/right = 207.0
+margin/bottom = 85.0
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+script/script = SubResource( 2 )
+
+[node name="Panel 3" type="Panel" parent="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -1319.0
+margin/top = 267.0
+margin/right = -1140.0
+margin/bottom = 382.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Panel 3"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 31.0
+margin/top = 51.0
+margin/right = 175.0
+margin/bottom = 112.0
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+script/script = SubResource( 3 )
+
+[node name="Panel 4" type="Panel" parent="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -1668.0
+margin/top = 868.0
+margin/right = -1379.0
+margin/bottom = 994.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Panel 4"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 49.0
+margin/top = 47.0
+margin/right = 219.0
+margin/bottom = 93.0
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+script/script = SubResource( 4 )
+
+[node name="Panel 5" type="Panel" parent="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -719.0
+margin/top = 1219.0
+margin/right = -435.0
+margin/bottom = 1350.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Panel 5"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 277.0
+margin/bottom = 124.0
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+script/script = SubResource( 5 )
+
+[node name="DeathFloor" type="Area2D" parent="."]
+
+editor/display_folded = true
+input/pickable = true
+shapes/0/shape = SubResource( 6 )
+shapes/0/transform = Matrix32( 260.318, 0, 0, 16.5482, -260.309, 1621.9 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = SubResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathFloor"]
+
+transform/pos = Vector2( -260.309, 1621.9 )
+transform/scale = Vector2( 260.318, 16.5482 )
+shape = SubResource( 6 )
+trigger = false
+_update_shape_index = 0
+script/script = SubResource( 8 )
+
+[node name="Level End" type="Area2D" parent="."]
+
+transform/pos = Vector2( 435.513, 1146.5 )
+input/pickable = true
+shapes/0/shape = SubResource( 9 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = SubResource( 10 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Level End"]
+
+transform/pos = Vector2( 2.23043, 8.39138 )
+transform/scale = Vector2( 0.16967, 0.18546 )
+frames = SubResource( 11 )
+animation = "default"
+frame = 32
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level End"]
+
+shape = SubResource( 9 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Rakkan" parent="." instance=ExtResource( 37 )]
+
+transform/pos = Vector2( -429.086, 325.936 )
+
+[node name="parallax_bg" parent="." instance=ExtResource( 38 )]
+
+[node name="fact" parent="." instance=ExtResource( 39 )]
+
+margin/left = -1027.0
+margin/top = -4.0
+margin/right = -664.0
+margin/bottom = 191.0
+
+[node name="fact1" parent="." instance=ExtResource( 39 )]
+
+margin/left = -1262.0
+margin/top = 997.0
+margin/right = -899.0
+margin/bottom = 1192.0
+
+[node name="fact2" parent="." instance=ExtResource( 39 )]
+
+margin/left = 189.0
+margin/top = 1193.0
+margin/right = 552.0
+margin/bottom = 1388.0
+
+[connection signal="body_enter" from="Level End" to="Rakkan" method="_on_Level_End_body_enter"]
+
+

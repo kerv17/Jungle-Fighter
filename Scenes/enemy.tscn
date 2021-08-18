@@ -1,0 +1,218 @@
+[gd_scene load_steps=14 format=1]
+
+[ext_resource path="res://Sprites/enemy/walk/117.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/enemy/walk/118.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/enemy/walk/119.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/enemy/walk/120.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/enemy/walk/121.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/enemy/walk/122.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/enemy/walk/123.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/enemy/walk/124.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/enemy/walk/125.png" type="Texture" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 14.6337, 15.2536 )
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends RigidBody2D
+
+# Member variables
+const STATE_WALKING = 0
+const STATE_DYING = 1
+var name =1
+var state = STATE_WALKING
+
+var direction = -1
+var anim = \"\"
+var health = 100
+var rc_left = null
+var rc_right = null
+var WALK_SPEED = 50
+
+
+func _die():
+	queue_free()
+
+
+func _pre_explode():
+	# Stay there
+	clear_shapes()
+	set_mode(MODE_STATIC)
+	get_node(\"sound\").play(\"explode\")
+
+
+func _integrate_forces(s):
+	var lv = s.get_linear_velocity()
+	var new_anim = anim
+
+	if (state == STATE_DYING):
+		new_anim = \"explode\"
+	elif (state == STATE_WALKING):
+		new_anim = \"walk\"
+		
+		var wall_side = 0.0
+		
+		for i in range(s.get_contact_count()):
+			var cc = s.get_contact_collider_object(i)
+			var dp = s.get_contact_local_normal(i)
+			
+			if (cc):
+				if health <=0:
+					self.queue_free()
+					break
+			
+			if (dp.x > 0.9):
+				wall_side = 1.0
+			elif (dp.x < -0.9):
+				wall_side = -1.0
+		
+		if (wall_side != 0 and wall_side != direction):
+			direction = -direction
+			get_node(\"sprite\").set_scale(Vector2(-direction, 1))
+		if (direction < 0 and not rc_left.is_colliding() and rc_right.is_colliding()):
+			direction = -direction
+			get_node(\"sprite\").set_scale(Vector2(-direction, 1))
+		elif (direction > 0 and not rc_right.is_colliding() and rc_left.is_colliding()):
+			direction = -direction
+			get_node(\"sprite\").set_scale(Vector2(-direction, 1))
+		if direction > 0:
+			get_node(\"Area2D/CollisionShape2D\").set_pos(Vector2(0.131499,-0.394724))
+		else:
+			get_node(\"Area2D/CollisionShape2D\").set_pos(Vector2(-1.731499,-0.394724))
+		lv.x = direction*WALK_SPEED
+	
+	if(anim != new_anim):
+		anim = new_anim
+		
+	
+	s.set_linear_velocity(lv)
+
+
+func _ready():
+	name = get_name()
+	rc_left = get_node(\"raycast_left\")
+	rc_right = get_node(\"raycast_right\")
+	get_node(\"../Rakkan/Punch\").connect(\"body_enter\", self, \"punched\")
+	get_node(\"../Rakkan/Area2D\").connect(\"body_enter\", self, \"hit\")
+	get_name()
+	
+func hit(body):
+	if get_node(\"../Rakkan/hitbox timer\").get_time_left() == 0:
+		if (body.get_name() == name):
+			get_node(\"../Rakkan\").health -= get_node(\"../Rakkan\").dmg_received
+			get_node(\"../Rakkan/Area2D\").set_enable_monitoring(false)
+			get_node(\"../Rakkan/hitbox timer\").start()
+			get_node(\"../Rakkan/sprite\").set_opacity(0.5)
+	pass
+	
+func punched(body):
+	if (body.get_name() == name):
+		health -= get_node(\"../Rakkan\").dmg_dealt
+		"
+
+[sub_resource type="SpriteFrames" id=3]
+
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 1.33713, 10 )
+
+[node name="enemy" type="RigidBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1.07253, 0, 0, 1.56896, -0.131499, 5.91265 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 2
+mass = 1.0
+friction = 0.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 4
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = SubResource( 2 )
+
+[node name="enabler" type="VisibilityEnabler2D" parent="."]
+
+transform/pos = Vector2( 16.2569, 11.0034 )
+transform/scale = Vector2( 23.5056, 10.8629 )
+rect = Rect2( -10, -10, 20, 20 )
+enabler/pause_animations = true
+enabler/freeze_bodies = true
+enabler/pause_particles = true
+enabler/pause_animated_sprites = true
+enabler/process_parent = false
+enabler/fixed_process_parent = false
+
+[node name="sprite" type="AnimatedSprite" parent="."]
+
+frames = SubResource( 3 )
+animation = "default"
+playing = true
+
+[node name="raycast_left" type="RayCast2D" parent="."]
+
+transform/pos = Vector2( -33.2868, -9.34363 )
+enabled = true
+cast_to = Vector2( 0, 45 )
+layer_mask = 1
+type_mask = 15
+
+[node name="raycast_right" type="RayCast2D" parent="."]
+
+transform/pos = Vector2( 29.1987, -9.34363 )
+enabled = true
+cast_to = Vector2( 0, 45 )
+layer_mask = 1
+type_mask = 15
+
+[node name="Area2D" type="Area2D" parent="."]
+
+transform/pos = Vector2( 16.2569, 11.0034 )
+transform/scale = Vector2( 23.5056, 10.8629 )
+input/pickable = true
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Matrix32( 0.292862, 0, 0, 0.196201, -1.38879, -0.394724 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+transform/pos = Vector2( -1.38879, -0.394724 )
+transform/scale = Vector2( 0.292862, 0.196201 )
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
+
+[node name="CollisionShape2D 3" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( -0.131499, 5.91265 )
+transform/scale = Vector2( 1.07253, 1.56896 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+

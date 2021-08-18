@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Panel
+
+var fact = \"\"
+var selected = \"\"
+func _ready():
+	randomize()
+	fact = [\"Pongo abelii est sur la liste rouge de l'IUCN, dans la catégorie en danger critique. En 2011, le déclin démographique évalué de ces orangs-outans dépasse les 80 % au cours des 75 dernières années.\",
+	 \"Pongo pygmaeus est sur la liste rouge de l'IUCN, également dans la catégorie en danger critique. En 2011, le déclin démographique évalué de ces orangs-outans dépasse nettement les 50 % au cours des 60 dernières années.\", 
+	\"La survie des orangs-outans dans la nature est grandement menacée par le développement des activités humaines et en particulier la déforestation, récemment encouragée par les sylvicultures industrielles (exploitation ou surexploitation du bois), le développement de mines et de cultures destinées à produire des biocarburants, et l'agriculture (en particulier pour la production d'huile de palme transformée ensuite en biodiésel).\",
+	\"La plupart de ces activités responsables de l'accélération de la destruction de leur habitat, sont illégales. Cela touche également les parcs nationaux officiellement hors d'atteinte des bûcherons, des mineurs et du développement des cultures. Certains jeunes orangs-outans sont également capturés pour être illégalement vendus, les braconniers tuent souvent la mère pour voler son bébé. Taipei, la capitale de Taïwan, compte beaucoup d'orangs-outans. Au marché noir, un petit singe se vend aisément. En dix ans, un millier de singes sont ainsi devenus des bêtes de cirque ou de compagnie. Or, sur six à huit petits capturés, un seul survit au choc et au voyage après que sa mère a été abattue par les braconniers.\",
+	\"L’espèce est également menacée par le braconnage, alimentant le marché de la viande sauvage et des animaux de compagnie, et les incendies de forêts, souvent volontaires. Seul un tiers de la population de l'État de Sabah se trouve dans des zones protégées telles que des parcs nationaux et réserves naturelles, ce qui laisse deux tiers des animaux sans protection et donc plus vulnérables encore.\",
+	\"Environ 80 pour cent de l'habitat des orang-outangs a été déboisé ces 20 dernières années. Les chercheurs de la « Wildlife Conservation Society » (Société de préservation de la faune) prévoient que la majeure partie de la population d'orang-outangs sauvages mondiale sera éteinte d'ici dix ans à moins que le braconnage et la destruction de son habitat puissent être arrêtés. Avec des pertes se montant à 1 000 individus chaque année, leur nombre est tombé de 12 000 en 1993 à 6 000 individus à peine aujourd'hui. Il y a onze ans, le Programme des Nations unies pour l'environnement (PNUE) avançait le chiffre de 800 orangs-outans au Sabah et de 5 000 dans le monde, sans avoir fait de recensement.\",
+	\"Le WWF travaille en collaboration avec les autorités et d’autres organisations pour la conservation de la nature : son but est d’étendre la superficie des aires protégées et d’en créer de nouvelles, où la chasse et l’exploitation forestière seront interdites. Le WWF a également aidé les autorités à faire appliquer les lois qui limitent sévèrement le commerce des orang-outangs vivants et des produits dérivés de ces primates. Lorsqu’un orang-outang est confisqué à un trafiquant, il est confié à un centre où il est réhabitué à la vie sauvage avant d’être relâché dans un site protégé.\",
+	\"La déforestation cause la destruction d'habitats de milliers d'espèces animales et végétales, souvent condamnées à disparaître, et elle perturbe les équilibres et assemblages d'espèces, souvent en ajoutant les effets de l'agriculture, du roadkill ou de l'urbanisation associées à la déforestation. Elle est aussi un facteur de fragmentation écopaysagère qui diminue la résilience écologique des forêts. Une évaluation porte à 3 le nombre d'espèces disparaissant ainsi chaque heure (soit 72/jour et 26 280/an).\",
+	\"En moyenne, plus de la moitié des populations de poissons, d’oiseaux, de mammifères, d’amphibiens et de reptiles ont disparu ces quarante dernières années. Ce chiffre alarmant, dévoilé dans le rapport Planète vivante 2014, est révélateur de l’impact immense de l’homme sur la biodiversité. Ces répercussions touchent aussi bien la faune que la flore.\",
+	\"Au début des années 2000, des experts estiment que plus de la moitié des espèces alors vivantes pourraient s'éteindre avant 2100. Cette prévision a été contestée par Bjorn Lomborg, mais fin 2014 une nouvelle évaluation publiée dans la revue Nature conclut qu'il reste impossible de précisément quantifier toute la biodiversité, mais pour les espèces connues la situation s'aggrave : les amphibiens sont les plus menacés (41% d'espèces en danger), devant les oiseaux (26%) et les mammifères. 60% des coraux pourraient mourir avant même 2050. Si l'on considère la fourchette d'une évaluation prospective (36 000 espèces disparaissant par an vers 2010-2014) la 6e extinction (75% des espèces auraient alors disparu) pourrait advenir vers 2200 (si rien de plus n'est fait pour l'éviter).\",
+	\"La destruction ou fragmentation de l'habitat d'une espèce ou d'un groupe d'espèce peut altérer le paysage adaptatif à un point tel que l'espèce n'est plus en mesure d'y survivre et donc s'éteint. Cela peut arriver par des effets directs comme la pollution de l'environnement, ou indirectement, par la diminution de la capacité d'une espèce à rester efficace lors de la dégradation de son milieu de vie dans la compétition pour les ressources naturelles ou contre de nouvelles espèces concurrentes.\",
+	\"La dégradation de l'habitat par la toxicité peut mettre fin à une espèce très rapidement, en tuant tous les membres par contamination ou en les rendant stériles. Cela peut se produire sur de longues périodes, à des niveaux faibles de toxicité, affectant la durée de vie, les capacités de reproduction ou de compétitivité.\",
+	\"La dégradation peut aussi prendre la forme d'une destruction physique des habitats, ayant de tout temps sporadiquement existé mais qui a atteint une ampleur et une rapidité beaucoup plus importante du fait de l'expansion humaine, notamment depuis la révolution industrielle dans le Nord et de l'explosion démographique encore en cours dans le Sud induisant une surpopulation mondiale qui fait pression sur les milieux naturels (extension des zones de cultures et de pâturages au détriment des écosystèmes naturels, pratiques de surpêche). Un exemple célèbre est la destruction des forêts tropicales humides et son remplacement par des pâturages, ce qui a considérablement réduit les populations d'Orang-outan en Asie ; la destruction de la forêt dense entraîne l'élimination de l'infrastructure nécessaire à la vie de nombreuses espèces. Par exemple, une fougère a besoin de beaucoup d'ombre pour se protéger de la lumière directe du Soleil. Elle ne peut survivre sans forêt pour l'abriter. Autre cas, la destruction du plancher océanique par le chalutage des fonds marins, le drainage des zones humides pour la sylviculture ou l'agriculture.\",
+	\"Des ressources en baisse ou la présence de nouvelles espèces concurrentes accompagne souvent la dégradation de l'habitat. Le réchauffement climatique a permis à certaines espèces d'étendre leur territoire, apportant une concurrence non désirée avec les espèces qui occupaient déjà cette zone. Parfois les nouveaux concurrents sont des prédateurs et affectent les espèces proies, ou bien les derniers venus sont en forte concurrence avec les espèces locales pour des ressources naturelles en quantité limitée. Les ressources vitales comme l'eau et la nourriture peuvent aussi être réduites, ce qui mène à l'extinction.\",
+	\"Les hommes ont transporté des animaux et plantes d'un point à l'autre du globe depuis des milliers d'années, parfois délibérément (ex. le bétail débarqué sur les îles et utilisé comme nourriture) et parfois accidentellement (ex. les rats s'échappant d'un bateau). Dans la plupart des cas, de telles introductions sont sans succès, mais lorsqu'une espèce réussit à coloniser un territoire (elle devient alors une espèce invasive), les conséquences peuvent être catastrophiques.\",
+	\"Les espèces invasives peuvent affecter les espèces natives en les mangeant, en entrant en compétition avec elles, en introduisant des pathogènes ou parasites qui les rendent malades ou les tuent, ou encore indirectement en dégradant leur habitat.\",
+	\"Les populations humaines peuvent également agir comme des prédateurs invasifs. Selon l'hypothèse de l'extermination préhistorique, la rapide extinction de la mégafaune dans des zones comme la Nouvelle-Zélande, l'Australie, Madagascar et Hawaï résultent d'une soudaine introduction d'humains dans des environnements remplis d'animaux qui n'en avaient jamais vus auparavant et étaient ainsi complètement inadaptés à leurs techniques de prédation. La surexploitation par la chasse peut mener à la disparition totale d'une espèce : ce fut le cas du dodo ou des grands mammifères disparus au cours des derniers millénaires.\",
+	\"De nos jours, la croissance des échanges internationaux augmente le risque de propagation d'espèces invasives. Afin d'éviter ce phénomène, des contrôles douaniers aux frontières sont effectués, en particulier dans les aéroports.\",
+	\"D'après un sondage fait en 1998 auprès de 400 biologistes par le Muséum d'histoire naturelle américain de New-York, près de 70 % des biologistes pensent que nous sommes actuellement au début d'une extinction de masse causée par l'homme, connue en tant qu'extinction de l'Holocène. Dans ce sondage, la même proportion de personnes interrogées était d'accord avec la prédiction selon laquelle jusqu'à 20 % de toutes les populations vivantes pourraient s'éteindre d'ici une trentaine d'années (vers 2028).\",
+	\"En 2004, une étude parue dans Nature réalisée sous la direction de Chris Thomas et basée sur un échantillon de régions couvrant 20 % de la surface terrestre montre que les changements climatiques entraîneront la perte de 15 % à 37 % des espèces vivantes d'ici 2050, suivant les scénarios. Soit un rythme dépassant très largement l'échelle des temps géologiques ; ce qui annonce la septième crise d'extinction massive des espèces que la Terre ait connue (les précédentes étant énumérées en préambule), cette fois pour des raisons anthropiques.\",
+	\"Dans le dernier rapport du WWF : Rapport Planète VivanteⓇ 2014, il est indiqué que, selon le critère IPV (Indice Planète VivanteⓇ) établi en mesurant plus de 10 000 populations représentatives de mammifères, d'oiseaux, de reptiles, d'amphibiens et de poissons, la taille des populations des espèces de vertébrés a décliné de 52 % entre 1970 et 2010, c'est-à-dire en moins de deux générations.\",
+	\"Les gouvernements voient parfois la perte d'espèces locales comme une perte pour l'écotourisme et peuvent édicter des lois prévoyant une punition sévère pour le commerce des espèces autochtones, afin de prévenir l'extinction dans la nature. Des réserves naturelles sont créées par les gouvernements comme un moyen de fournir de façon durable des habitats naturels aux espèces opprimées par l'expansion humaine. La Convention sur la diversité biologique de 1992 a permis la mise en place de plans d'action pour la biodiversité tentant de fournir des lignes directrices compréhensibles pour les projets gouvernementaux de conservation de la biodiversité. Des groupes de soutien comme le Wildlands Project et l'Alliance for Zero Extinctions, travaillent à éduquer le public et à faire pression sur les gouvernements pour qu'ils prennent des initiatives de conservation.\",
+	\"Olivia Judson est l'une des quelques scientifiques modernes à argumenter en faveur de l'extinction délibérée de certaines espèces. Son article A Bug's Death du 25 septembre 2003 dans le New York Times, défend la cause du « specicide » de trente espèces de moustiques grâce à l'introduction d'un gène « knock out » récessif.\",
+	\"On ne se retrouve pas dans un écosystème de désolation chaque fois qu'une espèce disparaît. Éliminer une espèce engendre parfois des changements pour d'autres espèces, mais ce n'est pas nécessairement pire.\",
+	\"De plus les programmes anti-malaria et de contrôle des populations de moustiques n'offrent qu'un faible espoir réaliste aux 300 millions de personnes des pays en développement infectées chaque année ; bien que des essais soient en cours, Olivia Judson écrit que s'ils échouent, « nous devons considérer la solution radicale » (autrement dit exterminer les moustiques).\",
+	\"La Fondation Rockefeller en 1916 puis l'Organisation panaméricaine de la santé au milieu du xxe siècle ont tenté en vain d'éradiquer Aedes aegypti.\",
+	\"La prise de conscience par l'homme de l'accélération des extinctions d'espèces, notamment celles dues à l'impact de ses activités, a favorisé l'émergence des mouvements de conservation de la nature à travers le monde.\",
+	\"Les moyens d'action pour tenter de préserver les espèces menacées sont multiples : tout d'abord la création d'organisations consacrées à la conservation de la nature à différentes échelles et dans de nombreuses parties du monde : des modestes associations de protection de l'environnement local, aux organisations non gouvernementales et aux grandes institutions mondiales de conservation de la nature (Greenpeace, UICN, Ocean Conservancy,Birdlife International, etc.).\",
+	\"Des traités internationaux ont été conclus pour lutter contre la disparition d'espèces. Par exemple la Convention sur le commerce international des espèces de faune et de flore sauvages menacées d'extinction signée le 3 mars 1973 à Washington (CITES selon le sigle anglo-américain, connue aussi sous le nom de « Convention de Washington ») est un accord intergouvernemental qui a pour objectif de protéger les espèces animales et végétalesmenacées d'extinction par les échanges internationaux en contrôlant le commerce.\",
+	]
+	selected = fact[rand_range(0,26)]
+	get_node(\"RichTextLabel\").set_bbcode(selected)
+	pass
+
+"
+
+[node name="fact" type="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 363.0
+margin/bottom = 195.0
+script/script = SubResource( 1 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 2.0
+margin/top = 10.0
+margin/right = 355.0
+margin/bottom = 250.0
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+
+

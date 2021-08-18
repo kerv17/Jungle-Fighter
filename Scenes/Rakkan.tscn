@@ -1,0 +1,537 @@
+[gd_scene load_steps=44 format=1]
+
+[ext_resource path="res://Sprites/Rakkan/Animation/idle/92.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Rakkan/Animation/idle/93.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Rakkan/Animation/run/143.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Rakkan/Animation/run/144.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Rakkan/Animation/run/145.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Rakkan/Animation/run/146.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Rakkan/Animation/run/147.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Rakkan/Animation/run/148.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Rakkan/Animation/run/149.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Rakkan/Animation/run/150.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Rakkan/Animation/run/151.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Rakkan/Animation/summon/40.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/Rakkan/Animation/summon/41.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/Rakkan/Animation/summon/42.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/Rakkan/Animation/summon/39.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/Rakkan/Animation/summon/43.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/Rakkan/Animation/summon/44.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/Rakkan/Animation/summon/45.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/Rakkan/Animation/Death/260.png" type="Texture" id=19]
+[ext_resource path="res://Sprites/Rakkan/Animation/Death/261.png" type="Texture" id=20]
+[ext_resource path="res://Sprites/Rakkan/Animation/Death/262.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/Rakkan/Animation/Death/263.png" type="Texture" id=22]
+[ext_resource path="res://Sprites/Rakkan/Animation/Death/264.png" type="Texture" id=23]
+[ext_resource path="res://Sprites/Rakkan/Animation/Death/265.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/Rakkan/Animation/attack/195.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/Rakkan/Animation/attack/196.png" type="Texture" id=26]
+[ext_resource path="res://Sprites/Rakkan/Animation/attack/197.png" type="Texture" id=27]
+[ext_resource path="res://Sprites/Rakkan/Animation/attack/198.png" type="Texture" id=28]
+[ext_resource path="res://Sprites/Rakkan/Animation/attack/199.png" type="Texture" id=29]
+[ext_resource path="res://Sprites/Rakkan/Animation/attack/200.png" type="Texture" id=30]
+[ext_resource path="res://Fonts/Press Start 2P.fnt" type="BitmapFont" id=31]
+[ext_resource path="res://Fonts/Origami Mommy Pixelated.fnt" type="BitmapFont" id=32]
+[ext_resource path="res://Sprites/Rakkan/Ability/IMG_3671.tex" type="Texture" id=33]
+[ext_resource path="res://Sprites/Rakkan/Ability/IMG_3673.tex" type="Texture" id=34]
+[ext_resource path="res://Sprites/Rakkan/Ability/IMG_3674.tex" type="Texture" id=35]
+[ext_resource path="res://Sprites/Rakkan/Ability/IMG_3665.tex" type="Texture" id=36]
+[ext_resource path="res://Scenes/SamplePlayer.tscn" type="PackedScene" id=37]
+[ext_resource path="res://Scenes/Pause Panel.tscn" type="PackedScene" id=38]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "
+extends KinematicBody2D
+# ANIMATION
+onready var sprite_node = get_node(\"sprite\")
+var mask = \"Sprite\"
+onready var sprite_gorilla = get_node(\"Sprite/Gorilla\")
+var anim = \"idle\"
+
+#PHYSICS
+var input_direction = 0
+var direction = 0
+var speed_x = 0
+var speed_y = 0
+var velocity = Vector2()
+var acceleration = 1000
+var deceleration = 5000
+const GRAVITY = 2000
+const MAX_FALL_SPEED = 1400
+var jump_count = 0
+
+#ABILITIES
+var summon_ready =1
+var summoning =0
+var attacking =0
+var max_speed = 600
+var max_jump_count = 1
+const MAX_HEALTH = 500
+var health = MAX_HEALTH
+var dmg_received = 50
+var attack_speed = 1
+var dmg_dealt = 50
+var jump_force = 800
+var cooldown = 0
+
+func _ready():
+	set_process(true)
+	set_process_input(true)
+	get_node(\"../DeathFloor\").connect(\"body_enter\", self, \"deathzone\")
+	get_node(\"Punch\").set_enable_monitoring (false)
+	pass
+	
+func deathzone(body):
+	if (body.get_name() == \"Rakkan\"):
+		health =0
+	pass
+
+
+func _input(event):
+	if jump_count < max_jump_count and event.is_action_pressed(\"jump\") and attacking == 0:
+		speed_y = -jump_force
+		jump_count +=1
+	pass
+ 
+func _process(delta):
+	#UI
+	cooldown = int(get_node(\"Timer 2\").get_time_left())
+	get_node(\"Cooldown\").set_bbcode(str(cooldown))
+	get_node(\"RichTextLabel 2\").set_bbcode(str(health))
+	get_node(\"RichTextLabel 2\").add_text(\"/\")
+	get_node(\"RichTextLabel 2\").add_text(str(MAX_HEALTH))
+	#DEATH
+	
+	# INPUT
+	if input_direction:
+		direction = input_direction   
+	if Input.is_action_pressed(\"move_left\") and anim != \"summon\" and anim != \"attack\":
+		input_direction = -1
+		get_node(\"Punch/CollisionShape2D\").set_pos(Vector2(-19.73555,1.864236))
+		sprite_node.set_flip_h(true)
+		sprite_gorilla.set_flip_h(true)
+	elif Input.is_action_pressed(\"move_right\") and anim != \"summon\" and anim != \"attack\":
+		input_direction = 1
+		get_node(\"Punch/CollisionShape2D\").set_pos(Vector2(19.73555,1.864236))
+		sprite_node.set_flip_h(false)
+		sprite_gorilla.set_flip_h(false)
+	else:
+		input_direction = 0
+
+	# SET ANIMATION
+	if Input.is_action_pressed(\"kill\"):
+		health = -25
+	if speed_x ==0 and attacking ==0:
+		anim = \"idle\"
+	elif speed_x !=0 and attacking ==0:
+		anim = \"run\"
+	
+	if Input.is_action_pressed(\"attack\"):
+		anim = \"attack\"
+		get_node(\"Punch\").set_enable_monitoring (true)
+		get_node(\"ability timer\").set_wait_time(0.3)
+		attacking = 1
+		get_node(\"ability timer\").start()
+		get_node(\"punch timer\").start()
+		get_node(\"SamplePlayer\").play(\"stab\")
+		
+	if Input.is_action_pressed(\"summon\") and summon_ready == 1:
+		summon_ready =0
+		get_node(\"SamplePlayer\").play(\"mask-on\")
+		anim = \"summon\"
+		get_node(\"ability timer\").set_wait_time(0.6)
+		summoning =1
+		get_node(\"ability timer\").start()
+		
+		if Input.is_action_pressed(\"Tiger\"):
+			
+			get_node(\"Timer\").start()
+			max_speed = 800
+			max_jump_count = 1
+			dmg_received = 50
+			attack_speed = 1
+			dmg_dealt = 50
+			mask = \"Sprite/Tiger\"
+			
+		if Input.is_action_pressed(\"Monkey\"):
+			get_node(\"Timer\").start()
+			max_speed = 600
+			max_jump_count = 2
+			dmg_received = 50
+			attack_speed = 1
+			dmg_dealt = 50
+			mask = \"Sprite/Monkey\"
+			
+		if Input.is_action_pressed(\"Gorilla\"):
+			
+			get_node(\"Timer\").start()
+			max_speed = 800
+			max_jump_count = 1
+			dmg_received = 50
+			attack_speed = 1
+			dmg_dealt = 50
+			mask = \"Sprite/Gorilla\"
+			
+		if Input.is_action_pressed(\"Rhino\"):
+			
+			get_node(\"Timer\").start()
+			max_speed = 800
+			max_jump_count = 1
+			dmg_received = 50
+			attack_speed = 1
+			dmg_dealt = 50
+			mask = \"Sprite/Rhino\"
+			
+	if attacking == 1:
+		anim = \"attack\"
+	if summoning == 1:
+		anim = \"summon\"
+	#DEATH
+	if health <= 0:
+		anim = \"death\"
+		get_node(\"Death timer\").start()
+		health =0
+		get_node(\"RichTextLabel 2\").set_bbcode(str(health))
+		get_node(\"RichTextLabel 2\").add_text(\"/\")
+		get_node(\"RichTextLabel 2\").add_text(str(MAX_HEALTH))
+		get_node(\"../StreamPlayer\").stop()
+		get_tree().set_pause(true)
+	get_node(\"sprite\").play(anim)
+	if mask != \"Sprite\":
+		get_node(mask).set_hidden(0)
+	
+	# MOVEMENT
+	if input_direction == - direction:
+		speed_x /= 3
+	if input_direction:
+		speed_x += acceleration * delta
+	else:
+		speed_x -= deceleration * delta
+	speed_x = clamp(speed_x, 0, max_speed)
+	
+	speed_y += GRAVITY * delta
+	if speed_y > MAX_FALL_SPEED:
+		speed_y = MAX_FALL_SPEED
+	
+	velocity.x = speed_x * delta * direction
+	velocity.y = speed_y * delta
+	
+	#COLLISION CANCEL
+	var movement_remainder = move(velocity)
+	if is_colliding():
+		var normal = get_collision_normal()
+		var final_movement = normal.slide(movement_remainder)
+		speed_y = normal.slide(Vector2(0, speed_y)).y
+		move(final_movement)
+		jump_count = 0
+		
+	pass
+
+func _on_Timer_timeout():
+	get_node(\"Timer 2\").start()
+	get_node(\"Cooldown\").set_hidden(0)
+	get_node(\"SamplePlayer\").play(\"sfx-swoop2\")
+	max_speed = 600
+	max_jump_count = 1
+	dmg_received = 50
+	attack_speed = 1
+	dmg_dealt = 50
+	get_node(mask).set_hidden(1)
+	mask = \"Sprite\"
+	pass # replace with function body
+
+func _on_Timer_2_timeout():
+	summon_ready =1
+	get_node(\"Cooldown\").set_hidden(1)
+	pass # replace with function body
+
+
+
+func _on_ability_timer_timeout():
+	attacking = 0
+	summoning = 0
+	
+	pass # replace with function body
+
+
+func _on_Death_timer_timeout():
+	get_node(\"Pause Panel\").set_hidden(0)
+	pass # replace with function body
+
+
+func _on_Level_End_body_enter( body ):
+	if (body.get_name() == \"Rakkan\"):
+		get_node(\"../Level End\").finished = 1
+	pass # replace with function body
+
+
+func _on_punch_timer_timeout():
+	get_node(\"Punch\").set_enable_monitoring (false)
+	pass # replace with function body
+
+
+func _on_hitbox_timer_timeout():
+	get_node(\"Area2D\").set_enable_monitoring (true)
+	get_node(\"sprite\").set_opacity(1)
+	pass # replace with function body
+"
+
+[sub_resource type="SpriteFrames" id=3]
+
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "run",
+"speed": 25.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "summon",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ) ],
+"loop": false,
+"name": "death",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ) ],
+"loop": true,
+"name": "attack",
+"speed": 20.0
+} ]
+
+[sub_resource type="CircleShape2D" id=4]
+
+custom_solver_bias = 0.0
+radius = 10.0
+
+[sub_resource type="CapsuleShape2D" id=5]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 2.57744
+
+[node name="Rakkan" type="KinematicBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1.96536, 0, 0, 2.48834, 1.89852, 5.66527 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+script/script = SubResource( 2 )
+
+[node name="sprite" type="AnimatedSprite" parent="."]
+
+process/pause_mode = 2
+frames = SubResource( 3 )
+animation = "attack"
+frame = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( 1.89852, 5.66527 )
+transform/scale = Vector2( 1.96536, 2.48834 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+
+[node name="Timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = true
+autostart = false
+
+[node name="Timer 2" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 5.0
+one_shot = true
+autostart = false
+
+[node name="ability timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 0.3
+one_shot = true
+autostart = false
+
+[node name="Death timer" type="Timer" parent="."]
+
+process/pause_mode = 2
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="hitbox timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 0.75
+one_shot = true
+autostart = false
+
+[node name="punch timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="Cooldown" type="RichTextLabel" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -12.0
+margin/top = -53.0
+margin/right = 28.0
+margin/bottom = -13.0
+custom_fonts/normal_font = ExtResource( 31 )
+custom_colors/default_color = Color( 0.9375, 0.904541, 0.904541, 1 )
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+
+[node name="RichTextLabel 2" type="RichTextLabel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -48.0
+margin/top = 32.0
+margin/right = 55.0
+margin/bottom = 47.0
+custom_fonts/normal_font = ExtResource( 32 )
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+
+[node name="Sprite" type="Sprite" parent="."]
+
+editor/display_folded = true
+
+[node name="Monkey" type="Sprite" parent="Sprite"]
+
+visibility/visible = false
+transform/pos = Vector2( 0.753623, -7.56698 )
+transform/scale = Vector2( 0.281713, 0.207605 )
+texture = ExtResource( 33 )
+
+[node name="Gorilla" type="Sprite" parent="Sprite"]
+
+visibility/visible = false
+transform/pos = Vector2( 1.31202, -4.50386 )
+transform/scale = Vector2( 0.145463, 0.146517 )
+texture = ExtResource( 34 )
+
+[node name="Rhino" type="Sprite" parent="Sprite"]
+
+visibility/visible = false
+transform/pos = Vector2( 0.370194, -6.85429 )
+transform/scale = Vector2( 0.0757339, 0.0753395 )
+texture = ExtResource( 35 )
+
+[node name="Tiger" type="Sprite" parent="Sprite"]
+
+visibility/visible = false
+transform/pos = Vector2( 1.1758, -6.64047 )
+transform/scale = Vector2( 0.0796547, 0.0640197 )
+texture = ExtResource( 36 )
+
+[node name="SamplePlayer" parent="." instance=ExtResource( 37 )]
+
+[node name="Pause Panel" parent="." instance=ExtResource( 38 )]
+
+margin/left = -294.0
+margin/top = -146.0
+margin/right = 329.0
+margin/bottom = 147.0
+
+[node name="Punch" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1.86654, 19.7355, 1.86424 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Punch"]
+
+transform/pos = Vector2( 19.7355, 1.86424 )
+transform/scale = Vector2( 1, 1.86654 )
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Area2D" type="Area2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 1.89852, 5.66527 )
+transform/scale = Vector2( 1.96536, 2.48834 )
+input/pickable = true
+shapes/0/shape = SubResource( 5 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D1" type="CollisionShape2D" parent="Area2D"]
+
+shape = SubResource( 5 )
+trigger = false
+_update_shape_index = 0
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+
+[connection signal="timeout" from="Timer 2" to="." method="_on_Timer_2_timeout"]
+
+[connection signal="timeout" from="ability timer" to="." method="_on_ability_timer_timeout"]
+
+[connection signal="timeout" from="Death timer" to="." method="_on_Death_timer_timeout"]
+
+[connection signal="timeout" from="hitbox timer" to="." method="_on_hitbox_timer_timeout"]
+
+[connection signal="timeout" from="punch timer" to="." method="_on_punch_timer_timeout"]
+
+
